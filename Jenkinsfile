@@ -1,5 +1,6 @@
 pipeline {
     agent {
+      //  triggers { pollSCM('H/5 * * * *') }
         docker {
             image 'node:6-alpine'
             args '-p 3003:3000'
@@ -9,6 +10,24 @@ pipeline {
         CI = 'true'
     }
     stages {
+        stage('Checkout2') {
+            steps {
+                git(
+                url: 'https://github.com/y0zg/jenkinspipeline.git',
+                credentialsId: 'b3c2551f-c80d-4afe-9b11-bf7d73bc2180',
+                branch: "master"
+                )
+            }
+        } 
+        stage('Checkout1') {
+            steps {
+                git(
+                url: 'https://github.com/y0zg/simple-node-js-react-npm-app.git',
+                credentialsId: 'b3c2551f-c80d-4afe-9b11-bf7d73bc2180',
+                branch: "master"
+                )
+            }
+        } 
         stage('Build') {
             steps {
                 sh 'npm install'
