@@ -1,11 +1,10 @@
 #!/bin/bash
-sudo yum install -y npm
-sudo yum install -y nodejs npm
-sudo yum install -y nodejs
-sudo yum install -y node
-sudo yum install -y epel-release
-sudo amazon-linux-extras install epel
+sudo yum install -y git
+git clone https://github.com/y0zg/simple-node-js-react-npm-app.git /opt/react
+cd /opt/react
+sudo chown ec2-user:ec2-user -R /opt/react  
+touch test_$(date +%F)
 sudo amazon-linux-extras install -y epel
 sudo yum install -y npm nodejs
-npm install
-npm start
+su - ec2-user -c "cd /opt/react && npm install"
+su - ec2-user -c "cd /opt/react && nohup npm start &"
